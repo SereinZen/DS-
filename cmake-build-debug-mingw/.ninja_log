@@ -1,0 +1,9 @@
+# ninja log v5
+5	874	7239029672888697	CMakeFiles/SFMLtest.dir/main.cpp.obj	96b86bb79c592c2
+20	917	7239029673312888	CMakeFiles/SFMLtest.dir/Basic_Logic/Qi_Pan/Qi_Pan.cpp.obj	ee8ab76eb5e11062
+0	322	7239236636695587	build.ninja	5c779726aeb18787
+6	1024	7239227585448897	CMakeFiles/WuZiQi.dir/Basic_Logic/Qi_Pan/Qi_Pan.cpp.obj	ed87ddea48876195
+6	936	7239231673506129	CMakeFiles/WuZiQi.dir/Basic_Logic/Game/Game.cpp.obj	388423ce503853b7
+5	940	7239217442939347	CMakeFiles/WuZiQi.dir/main.cpp.obj	37f9323fedb851c8
+67	1092	7239217444459458	CMakeFiles/WuZiQi.dir/Basic_Logic/Qi_Zi/Qi_Zi.cpp.obj	b387775947f50089
+937	1546	7239231679567517	WuZiQi.exe	850f31fc13fa1fc2

@@ -1,0 +1,5 @@
+D:/Codes/MyCode c++/homework/DS--main/WuZiQi/cmake-build-debug/CMakeFiles/WuZiQi.dir
+D:/Codes/MyCode c++/homework/DS--main/WuZiQi/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Codes/MyCode c++/homework/DS--main/WuZiQi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Codes/MyCode c++/homework/DS--main/WuZiQi/cmake-build-debug/CMakeFiles/WuZiQi_autogen_timestamp_deps.dir
+D:/Codes/MyCode c++/homework/DS--main/WuZiQi/cmake-build-debug/CMakeFiles/WuZiQi_autogen.dir
