@@ -1,0 +1,36 @@
+# Ignore build output directories
+/build/
+/bin/
+/lib/
+
+# Ignore IDE-specific files and directories
+.idea/
+.vscode/
+
+# Ignore CMake build directories
+cmake-build-debug/
+cmake-build-release/
+cmake-build-relwithdebinfo/
+
+# Ignore user-specific CMake settings
+CMakeLists.txt.user
+
+# Ignore compiled object files
+*.o
+*.obj
+
+# Ignore compiled executables
+*.exe
+*.out
+
+# Ignore generated documentation
+/doc/
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary and backup files
+*~
+*.swp
+*.bak
