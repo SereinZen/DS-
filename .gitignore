@@ -15,6 +15,7 @@ cmake-build-relwithdebinfo/
 
 # Ignore user-specific CMake settings
 CMakeLists.txt.user
+CMakeLists.txt
 
 # Ignore compiled object files
 *.o
