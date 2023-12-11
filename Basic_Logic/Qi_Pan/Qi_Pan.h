@@ -10,14 +10,14 @@ private:
     int width; // 棋盘的宽度
     int height; // 棋盘的高度
     int dotRadius; // 背景图 五个定位点 的半径
-    int QiRadius; // 棋子的半径
-    int color;
+    int chessRadius; // 棋子的半径
+    int color;// 当前棋子颜色
     int **qiPan;// 棋盘数组
     sf::RenderTexture* renderTexture; // 纹理
     int gap; // 棋盘中线条的间距
-    int rest;
-    location* myloc;
-    location* qiloc;
+    int rest;// 棋盘中剩余空位的数量
+    location* myLoc; //当前棋子的数组坐标
+    location* chessLoc; //当前棋子的实际坐标
     void generateWuZiQiBackground();
 
 public:
@@ -27,12 +27,11 @@ public:
     int getChessSize();//返回棋子大小
     int **getQiPan();//返回棋盘数组
     void update(location* loc);//接收更新棋盘数据
-    int getColor();
-    int getRest();
-    int getGap();
-    location* getqiloc();
-    location* getLoc();
-    int clickValid(location* loc);
+    int getColor();//返回当前棋子颜色
+    int getRest();//返回剩余空位数量
+    int getGap();//返回棋盘线条间距
+    location* getChessLoc();//返回棋子实际坐标
+    location* getLoc();//返回棋子下标坐标
     sf::RenderTexture* getBackGround();
 };
 

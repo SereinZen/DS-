@@ -6,10 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include "math.h"
 
-
-
-
-
 void Qi_Pan::generateWuZiQiBackground() {
     renderTexture->create(width, height);
     renderTexture->clear(sf::Color::White);
@@ -19,11 +15,11 @@ void Qi_Pan::generateWuZiQiBackground() {
     sf::Color dotColor = sf::Color::Black;
 
     // 绘制外侧加粗的线条
-    int lineWidth = width - 4 * QiRadius;
+    int lineWidth = width - 4 * chessRadius;
     sf::RectangleShape outlineRect(sf::Vector2f(lineWidth, lineWidth));
     outlineRect.setOutlineColor(lineColor);
     outlineRect.setOutlineThickness(lineThickness * 3);
-    outlineRect.setPosition(QiRadius * 2, QiRadius * 2);
+    outlineRect.setPosition(chessRadius * 2, chessRadius * 2);
     renderTexture->draw(outlineRect);
 
     // 绘制网格线
@@ -32,8 +28,8 @@ void Qi_Pan::generateWuZiQiBackground() {
     line.setFillColor(lineColor);
 
     for (int i = 1; i < 14; i++) {
-        int pos = gap * i + QiRadius * 2 + (i - 2) * lineThickness;
-        line.setPosition(QiRadius * 2, pos);
+        int pos = gap * i + chessRadius * 2 + (i - 2) * lineThickness;
+        line.setPosition(chessRadius * 2, pos);
         renderTexture->draw(line);
 
     }
@@ -42,13 +38,13 @@ void Qi_Pan::generateWuZiQiBackground() {
     line1.setFillColor(lineColor);
 
     for (int i = 1; i < 14; i++) {
-        int pos = gap * i + QiRadius * 2 + (i - 2) * lineThickness;
-        line1.setPosition(pos, QiRadius * 2);
+        int pos = gap * i + chessRadius * 2 + (i - 2) * lineThickness;
+        line1.setPosition(pos, chessRadius * 2);
         renderTexture->draw(line1);
     }
 
     // 绘制五个点
-    int center = gap * 7 + 9 * lineThickness + QiRadius * 2;
+    int center = gap * 7 + 9 * lineThickness + chessRadius * 2;
     int offset = 4 * gap + 3 * lineThickness;
     int dotSize = dotRadius * 2;
 
@@ -75,15 +71,16 @@ void Qi_Pan::generateWuZiQiBackground() {
 //    return renderTexture.getTexture();
 }
 
-
-
+//构造函数，由Game类控制传入，实时建立窗口与初始化棋盘以及各个变量
 Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture) {
+    this->myLoc=new location(0,0);
+    this->chessLoc=new location(0,0);
     this->size = 15;
     this->width = height;
     this->height = width;
     this->dotRadius = dotRadius;
     this->color = 1;
-    this->QiRadius = qiRadius;
+    this->chessRadius = qiRadius;
     this->gap = (width - 4 * qiRadius) / 14;
     this->rest = size * size;
     int** qiPan = new int *[15];
@@ -99,55 +96,52 @@ Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTex
     this->renderTexture = renderTexture;
     generateWuZiQiBackground();
 }
+
 sf::RenderTexture* Qi_Pan::getBackGround() {
     return renderTexture;
 }
 
-
-
+//返回棋盘大小（15*15）
 int Qi_Pan::getSize() {
     return size;
 }
-
+//返回棋盘中剩余空位
 int Qi_Pan::getRest() {
     return rest;
 }
-
-
-
+//返回当前棋子颜色
 int Qi_Pan::getColor() {
     return color;
 }
-
+//返回棋子大小
 int Qi_Pan::getChessSize() {
-    return QiRadius;
+    return chessRadius;
 }
-
+//返回棋盘数组
 int **Qi_Pan::getQiPan() {
     return qiPan;
 }
-
+//返回棋盘中线条的间隔
 int Qi_Pan::getGap(){
     return gap;
 }
-
+//返回当前棋子在数组中的位置
 location* Qi_Pan::getLoc() {
-    return myloc;
+    return myLoc;
 }
-
-location* Qi_Pan::getqiloc() {
-    return qiloc;
+//返回当前棋子的实际位置
+location* Qi_Pan::getChessLoc() {
+    return chessLoc;
 }
-
+//在落子后更新棋盘
 void Qi_Pan::update(location* loc) {
-    int x = loc->getX();
-    int y = loc->getY();
-//    std::cout << x << " " << y << std::endl;
-    this->myloc = loc;
+    this->myLoc = loc;
+    rest--;
 
-    this->qiloc = new location(x * gap + QiRadius * 2 + x, y * gap + QiRadius * 2 + y);
-    // 数组与地图的x y相反
-    qiPan[y][x] = color;
+    this->chessLoc->set(myLoc->getX() * gap + chessRadius * 2 + myLoc->getX(), myLoc->getY() * gap + chessRadius * 2 + myLoc->getY());
+    // 数组与地图的实际位置x y相反
+    qiPan[myLoc->getY()][myLoc->getX()] = color;
+    //进行更换棋子颜色（换手）
     if (color == 1){
         color = -1;
     }
@@ -157,40 +151,14 @@ void Qi_Pan::update(location* loc) {
 }
 
 
-int Qi_Pan::clickValid(location* loc) {
-    //判定边界有效性
-    //TODO (size - 1) * gap
-    int minX = QiRadius;
-    int minY = QiRadius;
-    int maxX = (size - 1) * gap + QiRadius * 2;
-    int maxY = (size - 1) * gap + QiRadius * 2;
-    if(loc->getX()<minX || loc->getY()<minY || loc->getX()>maxX || loc->getY()>maxY){
-        return 0;
-    }
-
-    //判定当前格子有效性
-//    int **a=qiPan->getQiPan();
-    int indX = round((loc->getX() - minX)/gap);
-    int indY = round((loc->getY() - minY)/gap);
-    if( qiPan[indX][indY] == 0){
-        this->update(new location(indX, indY));
-
-        return 1;
-    }
-    return 0;
-}
-//
-//fabs(loc->getX() - indX * gap) < QiRadius
-//        && fabs(loc->getY() - indY * gap) < QiRadius
-//&&
-
-
 Qi_Pan::~Qi_Pan() {
     for (int i = 0; i < size; ++i) {
         delete[] qiPan[i];
     }
     // 释放存储行指针的内存
     delete[] qiPan;
+    delete myLoc;
+    delete chessLoc;
 }
 
 

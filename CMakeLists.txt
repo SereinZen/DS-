@@ -10,6 +10,7 @@ add_executable(WuZiQi
         Basic_Logic/Qi_Zi/Qi_Zi.cpp
         Basic_Logic/Game/Game.cpp
         Basic_Logic/Game/Game.h
+        Basic_Logic/Qi_Shou/Qi_Shou.cpp
 )
 
 # ÃÌº”œ¬√ÊSFML≈‰÷√
