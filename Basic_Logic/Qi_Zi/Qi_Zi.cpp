@@ -2,10 +2,10 @@
 #include "..\Qi_Pan\Qi_Pan.h"
 #include "..\Qi_Shou\Qi_Shou.h"
 #include "..\Game\Game.h"
+#include "../../ResultPopup/ResultPopup.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
-
 //显示棋子函数
 sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
     location* cur_loc;
@@ -111,6 +111,7 @@ void Qi_Zi::Luo_Zi(location *l) {
         drawChess(nullptr);
         //判断游戏是否结束
         if(int i=game->victory()){
+
             if(i==1){
                 std::cout<<"黑棋获胜"<<std::endl;
             }
@@ -121,7 +122,6 @@ void Qi_Zi::Luo_Zi(location *l) {
                 std::cout<<"平局"<<std::endl;
             }
             std::cout<<"游戏结束"<<std::endl;
-            game->window->close();
         }
     }
     else{

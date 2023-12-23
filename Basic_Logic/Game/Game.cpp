@@ -1,13 +1,16 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "Game.h"
 #include "../Qi_Pan/Qi_Pan.h"
 #include "../Qi_Shou/Qi_Shou.h"
 #include "../Qi_Zi/Qi_Zi.h"
+#include "../../ResultPopup/ResultPopup.h"
+
 //判断游戏胜负函数
 int Game::victory() {
-
+    if (qiPan->getLoc() == nullptr){
+        return 0;
+    }
     int color = -qiPan->getColor();
     int **a=qiPan->getQiPan();
     int size=qiPan->getSize();
@@ -127,6 +130,10 @@ void Game::play(){
         window->clear();
         window->draw(sf::Sprite(renderTexture->getTexture()));
         window->display();
+        if (int i = this->victory()){
+            ResultPopup rp = ResultPopup(i);
+            this->window->close();
+        }
     }
 }
 
