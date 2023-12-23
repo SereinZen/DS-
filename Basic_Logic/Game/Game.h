@@ -27,7 +27,6 @@ private:
     Qi_Pan *qiPan;//棋盘指针
     Qi_Shou *qiShou;//棋手指针
     Qi_Zi *qiZi;//棋子指针
-    sf::RenderWindow* window; // 窗口
     sf::Sprite* sprite; // 画好的面板
     sf::RenderTexture* renderTexture;//?
     sf::Event event;//窗口全局监听事件
@@ -37,6 +36,7 @@ public:
     ~Game();//析构函数，删除指针
     int victory();//判断是否分出胜负函数
     void play();//控制游戏流程函数
+    sf::RenderWindow* window; // 窗口
 };
 
 

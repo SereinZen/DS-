@@ -50,13 +50,6 @@ sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
 
 }
 
-sf::RenderTexture* Qi_Zi::generate_ShiZi(){
-    // 创建十字
-    sf::RenderTexture* rt;
-    // 横线
-
-    return rt;
-}
 
 
 
@@ -128,6 +121,7 @@ void Qi_Zi::Luo_Zi(location *l) {
                 std::cout<<"平局"<<std::endl;
             }
             std::cout<<"游戏结束"<<std::endl;
+            game->window->close();
         }
     }
     else{
