@@ -12,12 +12,10 @@ void Qi_Pan::generateWuZiQiBackground() {
 
     sf::Texture image;
     if (!image.loadFromFile("../src/background.png")) {
-        std::cout << -1 << std::endl;
+        std::cout << "背景图片加载失败" << std::endl;
         return;
     }
-    else{
-        std::cout << 0 << std::endl;
-    }
+
     sf::Sprite sprite(image);
     renderTexture->draw(sprite);
 

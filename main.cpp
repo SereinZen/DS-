@@ -41,7 +41,7 @@ int main() {
     int dotRadius = 4;
     int qi_radius = 25;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Menu Example");
+    sf::RenderWindow window(sf::VideoMode(1200, 1200), "WuZiQi");
     window.setFramerateLimit(60);
 
     sf::Font font;
@@ -49,18 +49,19 @@ int main() {
         // 处理字体加载失败的情况
         return -1;
     }
+    sf::Texture texture;
+    texture.loadFromFile("../src/background.png");
+    sf::Text titleText("Game Menu", font, 80);
+    titleText.setPosition(350, 150);
 
-    sf::Text titleText("Menu", font, 48);
-    titleText.setPosition(350.f, 100.f);
+    sf::Text pvpText("PVP", font, 60);
+    pvpText.setPosition(200, 500);
 
-    sf::Text pvpText("1. PvP", font, 24);
-    pvpText.setPosition(350.f, 200.f);
+    sf::Text pvaiText("PvE", font, 60);
+    pvaiText.setPosition(900, 500);
 
-    sf::Text pvaiText("2. PvAI", font, 24);
-    pvaiText.setPosition(350.f, 250.f);
-
-    sf::Text quitText("3. Quit", font, 24);
-    quitText.setPosition(350.f, 300.f);
+    sf::Text quitText("Quit", font, 60);
+    quitText.setPosition(550, 750);
 
     MenuOption selectedOption = MenuOption::PvP;
     GameState currentState = GameState::Menu;
@@ -100,11 +101,12 @@ int main() {
         }
 
         // 根据选中的选项设置文本颜色
-        pvpText.setFillColor(selectedOption == MenuOption::PvP ? sf::Color::Red : sf::Color::White);
-        pvaiText.setFillColor(selectedOption == MenuOption::PvAI ? sf::Color::Red : sf::Color::White);
-        quitText.setFillColor(selectedOption == MenuOption::Quit ? sf::Color::Red : sf::Color::White);
+        pvpText.setFillColor(selectedOption == MenuOption::PvP ? sf::Color::Red : sf::Color::Yellow);
+        pvaiText.setFillColor(selectedOption == MenuOption::PvAI ? sf::Color::Red : sf::Color::Yellow);
+        quitText.setFillColor(selectedOption == MenuOption::Quit ? sf::Color::Red : sf::Color::Yellow);
 
         window.clear();
+        window.draw(sf::Sprite(texture));
         window.draw(titleText);
         window.draw(pvpText);
         window.draw(pvaiText);
