@@ -7,7 +7,15 @@
 #include <iostream>
 
 //显示棋子函数
-sf::RenderTexture * Qi_Zi::drawChess() {
+sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
+    location* cur_loc;
+    if (loc != nullptr){
+        cur_loc = loc;
+
+    }
+    else{
+        cur_loc = qiPan->getChessLoc();
+    }
 
     sf::CircleShape qi_zi(qiPan->getChessSize());
     qi_zi.setOutlineColor(sf::Color::Black);
@@ -20,28 +28,33 @@ sf::RenderTexture * Qi_Zi::drawChess() {
         qi_zi.setFillColor(sf::Color::White);  // 设置棋子颜色
     }
     // 设置棋子位置
-    qi_zi.setPosition(qiPan->getChessLoc()->getX() - qiPan->getChessSize(),
-                      qiPan->getChessLoc()->getY() - qiPan->getChessSize());
-
+    qi_zi.setPosition(cur_loc->getX() - qiPan->getChessSize(),
+                      cur_loc->getY() - qiPan->getChessSize());
     renderTexture->draw(qi_zi);
+    if (loc == nullptr){
+        int Radius = qiPan->getChessSize();
+        // 横线
+        sf::RectangleShape horizontalLine(sf::Vector2f(Radius * 0.45, 1));
+        horizontalLine.setFillColor(sf::Color::Red);
+        horizontalLine.setPosition(cur_loc->getX() - Radius * 0.2, cur_loc->getY());
+        renderTexture->draw(horizontalLine);
+
+        // 绘制竖线
+        sf::RectangleShape verticalLine(sf::Vector2f(1, Radius * 0.45));
+        verticalLine.setFillColor(sf::Color::Red);
+        verticalLine.setPosition(cur_loc->getX(), cur_loc->getY() - Radius * 0.2);
+        renderTexture->draw(verticalLine);
+    }
     renderTexture->display();
     return renderTexture;
+
 }
 
 sf::RenderTexture* Qi_Zi::generate_ShiZi(){
     // 创建十字
     sf::RenderTexture* rt;
     // 横线
-    int Radius = qiPan->getChessSize();
-    sf::RectangleShape horizontalLine(sf::Vector2f(Radius * 0.5, 2));
-    horizontalLine.setFillColor(sf::Color::Red);
-    horizontalLine.setPosition(0, Radius * 0.5);
-    rt->draw(horizontalLine);
 
-    // 绘制竖线
-    sf::RectangleShape verticalLine(sf::Vector2f(2, Radius * 0.5));
-    verticalLine.setFillColor(sf::Color::Red);
-    verticalLine.setPosition(0.5 * Radius, 0);
     return rt;
 }
 
@@ -53,10 +66,6 @@ Qi_Zi::Qi_Zi(Game *game,sf::RenderTexture* renderTexture){
     this->game=game;
     this->renderTexture = renderTexture;
 //    this->shi_zi = this->generate_ShiZi();
-
-
-
-
 
 }
 
@@ -106,7 +115,7 @@ void Qi_Zi::Luo_Zi(location *l) {
     loc->set(l->getX(),l->getY());
     if (clickValid()){
         //如果点击有效，就将棋子显示出来
-        drawChess();
+        drawChess(nullptr);
         //判断游戏是否结束
         if(int i=game->victory()){
             if(i==1){

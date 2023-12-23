@@ -98,6 +98,7 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius){
     this->sprite = new sf::Sprite();
 
     //建立各类之间的通信
+    qiPan->set(qiZi);
     qiZi->set(qiPan);
     qiShou->set(qiPan,qiZi);
 }

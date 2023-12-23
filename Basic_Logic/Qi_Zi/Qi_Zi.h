@@ -21,9 +21,8 @@ public:
     ~Qi_Zi();//析构函数
     void set(Qi_Pan *qiPan);//初始化通信函数
     void Luo_Zi(location *l);//落子函数，需要传入鼠标点击的坐标
-    sf::RenderTexture * drawChess();//落子后显示棋子
+    sf::RenderTexture * drawChess(location* loc);//落子后显示棋子
     sf::RenderTexture* generate_ShiZi();
-
 };
 
 

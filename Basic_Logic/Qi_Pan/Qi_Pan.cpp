@@ -87,8 +87,8 @@ void Qi_Pan::generateWuZiQiBackground() {
 
 //构造函数，由Game类控制传入，实时建立窗口与初始化棋盘以及各个变量
 Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture) {
-    this->myLoc=new location(0,0);
-    this->chessLoc=new location(0,0);
+    this->myLoc = nullptr;
+    this->chessLoc = new location(0, 0);
     this->size = 15;
     this->width = height;
     this->height = width;
@@ -149,6 +149,10 @@ location* Qi_Pan::getChessLoc() {
 }
 //在落子后更新棋盘
 void Qi_Pan::update(location* loc) {
+    //TODO 覆盖之前的十字棋子
+    if (this->myLoc != nullptr){
+        qiZi->drawChess(this->chessLoc);
+    }
     this->myLoc = loc;
     rest--;
 
@@ -163,6 +167,11 @@ void Qi_Pan::update(location* loc) {
         color = 1;
     }
 }
+
+void Qi_Pan::set(Qi_Zi* qiZi){
+    this->qiZi = qiZi;
+}
+
 
 
 Qi_Pan::~Qi_Pan() {

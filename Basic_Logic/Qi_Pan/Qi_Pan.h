@@ -1,8 +1,10 @@
 #ifndef WUZIQI_QI_PAN_H
 #define WUZIQI_QI_PAN_H
 #include <SFML/Graphics.hpp>
+#include "../Qi_Zi/Qi_Zi.h"
 
 class location;
+class Qi_zi;
 
 class Qi_Pan {
 private:
@@ -19,7 +21,7 @@ private:
     location* myLoc; //当前棋子的数组坐标
     location* chessLoc; //当前棋子的实际坐标
     void generateWuZiQiBackground();
-
+    Qi_Zi* qiZi;
 public:
     Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture);//构造函数
     ~Qi_Pan();//析构函数
@@ -32,7 +34,9 @@ public:
     int getGap();//返回棋盘线条间距
     location* getChessLoc();//返回棋子实际坐标
     location* getLoc();//返回棋子下标坐标
+    void set(Qi_zi* qiZi);
     sf::RenderTexture* getBackGround();
+    void set(Qi_Zi *qiZi);
 };
 
 
