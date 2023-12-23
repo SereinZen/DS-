@@ -8,7 +8,19 @@
 
 void Qi_Pan::generateWuZiQiBackground() {
     renderTexture->create(width, height);
-    renderTexture->clear(sf::Color::White);
+    renderTexture->clear();
+
+    sf::Texture image;
+    if (!image.loadFromFile("../src/background.png")) {
+        std::cout << -1 << std::endl;
+        return;
+    }
+    else{
+        std::cout << 0 << std::endl;
+    }
+    sf::Sprite sprite(image);
+    renderTexture->draw(sprite);
+
     int lineThickness = 1;
     // 创建画笔并设置线条属性
     sf::Color lineColor = sf::Color::Black;
@@ -20,6 +32,8 @@ void Qi_Pan::generateWuZiQiBackground() {
     outlineRect.setOutlineColor(lineColor);
     outlineRect.setOutlineThickness(lineThickness * 3);
     outlineRect.setPosition(chessRadius * 2, chessRadius * 2);
+    // 默认填充无色
+    outlineRect.setFillColor(sf::Color::Transparent);
     renderTexture->draw(outlineRect);
 
     // 绘制网格线

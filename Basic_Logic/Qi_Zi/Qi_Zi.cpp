@@ -12,6 +12,7 @@ sf::RenderTexture * Qi_Zi::drawChess() {
     sf::CircleShape qi_zi(qiPan->getChessSize());
     qi_zi.setOutlineColor(sf::Color::Black);
     qi_zi.setOutlineThickness(1);
+//    shi_zi->getDefaultView();
     //调用显示棋子函数的时候此时已经更新棋盘（已经换手了），所以需要反向判定当前颜色
     if (qiPan->getColor() == -1) {
         qi_zi.setFillColor(sf::Color::Black);  // 设置棋子颜色
@@ -21,10 +22,29 @@ sf::RenderTexture * Qi_Zi::drawChess() {
     // 设置棋子位置
     qi_zi.setPosition(qiPan->getChessLoc()->getX() - qiPan->getChessSize(),
                       qiPan->getChessLoc()->getY() - qiPan->getChessSize());
+
     renderTexture->draw(qi_zi);
     renderTexture->display();
     return renderTexture;
 }
+
+sf::RenderTexture* Qi_Zi::generate_ShiZi(){
+    // 创建十字
+    sf::RenderTexture* rt;
+    // 横线
+    int Radius = qiPan->getChessSize();
+    sf::RectangleShape horizontalLine(sf::Vector2f(Radius * 0.5, 2));
+    horizontalLine.setFillColor(sf::Color::Red);
+    horizontalLine.setPosition(0, Radius * 0.5);
+    rt->draw(horizontalLine);
+
+    // 绘制竖线
+    sf::RectangleShape verticalLine(sf::Vector2f(2, Radius * 0.5));
+    verticalLine.setFillColor(sf::Color::Red);
+    verticalLine.setPosition(0.5 * Radius, 0);
+    return rt;
+}
+
 
 
 //构造函数
@@ -32,6 +52,12 @@ Qi_Zi::Qi_Zi(Game *game,sf::RenderTexture* renderTexture){
     loc=new location(0,0);
     this->game=game;
     this->renderTexture = renderTexture;
+//    this->shi_zi = this->generate_ShiZi();
+
+
+
+
+
 }
 
 //析构函数

@@ -27,6 +27,7 @@ CMakeLists.txt
 
 # Ignore generated documentation
 /doc/
+SFML-2.5.0
 
 # Ignore system-specific files
 .DS_Store
