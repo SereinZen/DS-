@@ -5,6 +5,7 @@
 #include "../Qi_Shou/Qi_Shou.h"
 #include "../Qi_Zi/Qi_Zi.h"
 #include "../../ResultPopup/ResultPopup.h"
+#include <SFML/Audio.hpp>
 
 //判断游戏胜负函数
 int Game::victory() {
@@ -110,10 +111,13 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius){
 
 //控制游戏流程函数
 void Game::play(){
-//    sf::Music music;
-//    music.openFromFile("../static/BGM.flac");
-//    music.setLoop(true); // 设置音乐循环播放
-//    music.play(); // 播放音乐
+    sf::Music music;
+    music.openFromFile("../src/BGM.flac");
+    music.setLoop(true); // 设置音乐循环播放
+    music.setVolume(50);
+    music.play(); // 播放音乐
+
+
     while (window->isOpen()){
         //当窗口开启时，游戏持续进行
         while (window->pollEvent(event)){

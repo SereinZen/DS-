@@ -28,7 +28,7 @@ private:
     Qi_Shou *qiShou;//棋手指针
     Qi_Zi *qiZi;//棋子指针
     sf::Sprite* sprite; // 画好的面板
-    sf::RenderTexture* renderTexture;//?
+    sf::RenderTexture* renderTexture;//画板
     sf::Event event;//窗口全局监听事件
 
 public:
