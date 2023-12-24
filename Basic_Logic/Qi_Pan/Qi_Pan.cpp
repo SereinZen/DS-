@@ -139,10 +139,12 @@ int Qi_Pan::getGap(){
 }
 //返回当前棋子在数组中的位置
 location* Qi_Pan::getLoc() {
+    //当前棋子的数组坐标
     return myLoc;
 }
 //返回当前棋子的实际位置
 location* Qi_Pan::getChessLoc() {
+    //当前棋子的实际坐标
     return chessLoc;
 }
 //在落子后更新棋盘

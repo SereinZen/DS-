@@ -125,9 +125,14 @@ void Game::play(){
             if (event.type == sf::Event::Closed){
                 window->close();
             }
-            else {
+            else if(event.type == sf::Event::MouseButtonPressed) {
                 //没有被关闭则棋手进行操作
                 qiShou->play(event,window);
+            }
+            else if(event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::R) {
+                    //TODO 悔棋
+                }
             }
         }
         //游戏结束后清空窗口，然后关掉（！注意！本部分代码在游戏正常结束时从未运行过！！！）
