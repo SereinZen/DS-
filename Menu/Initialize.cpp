@@ -2,6 +2,7 @@
 
 #include "../Basic_Logic/Game/Game.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 
 //int main() {
 //    //设置棋盘尺寸
@@ -67,7 +68,11 @@ int Initialize::initialize() {
 
     MenuOption selectedOption = MenuOption::PvP;
     GameState currentState = GameState::Menu;
-
+    sf::Music music;
+    music.openFromFile("../src/BGM.flac");
+    music.setLoop(true); // 设置音乐循环播放
+    music.setVolume(50);
+    music.play(); // 播放音乐
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {

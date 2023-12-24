@@ -10,12 +10,21 @@ class Game;
 class QiZi_Data{
 public:
     int color;
-    location* map_loc;
-    location* real_loc;
+    sf::RectangleShape* r1;
+    sf::RectangleShape* r2;
+    sf::CircleShape* c1;
 
-    QiZi_Data(int color, location* map_list){
+    QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1){
         this->color = color;
-        this->map_loc = map_list;
+        this->c1 = c1;
+        this->r1 = r1;
+        this->r2 = r2;
+    }
+
+    ~QiZi_Data(){
+        delete r1;
+        delete c1;
+        delete r2;
     }
 };
 
@@ -25,7 +34,6 @@ private:
     Qi_Pan *qiPan;//棋盘指针
     Game *game;//游戏指针，用于调用victory判定胜负函数
     sf::RenderTexture* renderTexture;//画板显示棋子
-    std::vector<QiZi_Data*>* Data_list;
     int clickValid();//判断鼠标点击的位置是否有效
 public:
     Qi_Zi(Game *game,sf::RenderTexture* renderTexture);//构造函数，需要获取当前游戏指针和游戏窗口画板
@@ -34,6 +42,8 @@ public:
     void Luo_Zi(location *l);//落子函数，需要传入鼠标点击的坐标
     sf::RenderTexture * drawChess(location* loc);//落子后显示棋子
     void regret_qi();
+    std::vector<QiZi_Data*> Data_list;
+
 };
 
 

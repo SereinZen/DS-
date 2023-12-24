@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include "Game.h"
 #include "../Qi_Pan/Qi_Pan.h"
 #include "../Qi_Shou/Qi_Shou.h"
@@ -130,14 +131,28 @@ void Game::play(){
                 qiShou->play(event,window);
             }
             else if(event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::R) {
+                if (event.key.scancode == sf::Keyboard::Scan::R) {
                     //TODO 悔棋
                 }
             }
         }
+
+        for (auto qi: qiZi->Data_list){
+//            renderTexture->clear();
+            // 画的顺序不能颠倒！！！
+            renderTexture->draw(*qi->c1);
+
+            if (qi->r1 != nullptr and qi->r2 != nullptr){
+                renderTexture->draw(*qi->r1);
+                renderTexture->draw(*qi->r2);
+            }
+        }
         //游戏结束后清空窗口，然后关掉（！注意！本部分代码在游戏正常结束时从未运行过！！！）
         window->clear();
-        window->draw(sf::Sprite(renderTexture->getTexture()));
+
+        window->draw(sf::Sprite(qiPan->getBackGround()->getTexture()));
+//        window->draw(sf::Sprite(renderTexture->getTexture()));
+
         window->display();
         if (int i = this->victory()){
             ResultPopup rp = ResultPopup(i);

@@ -8,7 +8,7 @@
 #include <iostream>
 #include <SFML/Audio.hpp>
 //显示棋子函数
-sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
+sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
     location* cur_loc;
     if (loc != nullptr){
         cur_loc = loc;
@@ -18,42 +18,73 @@ sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
         cur_loc = qiPan->getChessLoc();
     }
 
-    sf::CircleShape qi_zi(qiPan->getChessSize());
-    qi_zi.setOutlineColor(sf::Color::Black);
-    qi_zi.setOutlineThickness(1);
+    sf::CircleShape* qi_zi = new sf::CircleShape(qiPan->getChessSize());
+    qi_zi->setOutlineColor(sf::Color::Black);
+    qi_zi->setOutlineThickness(1);
 //    shi_zi->getDefaultView();
     //调用显示棋子函数的时候此时已经更新棋盘（已经换手了），所以需要反向判定当前颜色
     if (qiPan->getColor() == -1) {
-        qi_zi.setFillColor(sf::Color::Black);  // 设置棋子颜色
+        qi_zi->setFillColor(sf::Color::Black);  // 设置棋子颜色
     } else {
-        qi_zi.setFillColor(sf::Color::White);  // 设置棋子颜色
+        qi_zi->setFillColor(sf::Color::White);  // 设置棋子颜色
     }
     // 设置棋子位置
-    qi_zi.setPosition(cur_loc->getX() - qiPan->getChessSize(),
+    qi_zi->setPosition(cur_loc->getX() - qiPan->getChessSize(),
                       cur_loc->getY() - qiPan->getChessSize());
-    renderTexture->draw(qi_zi);
+    QiZi_Data* qiZiData = new QiZi_Data(qiPan->getColor(), nullptr, nullptr, qi_zi);
+//    renderTexture->draw(*qi_zi);
+
     if (loc == nullptr){
         int Radius = qiPan->getChessSize();
         // 横线
-        sf::RectangleShape horizontalLine(sf::Vector2f(Radius * 0.45, 1));
-        horizontalLine.setFillColor(sf::Color::Red);
-        horizontalLine.setPosition(cur_loc->getX() - Radius * 0.2, cur_loc->getY());
-        renderTexture->draw(horizontalLine);
+        sf::RectangleShape* horizontalLine = new sf::RectangleShape(sf::Vector2f(Radius * 0.45, 1));
+        horizontalLine->setFillColor(sf::Color::Red);
+        horizontalLine->setPosition(cur_loc->getX() - Radius * 0.2, cur_loc->getY());
+//        renderTexture->draw(*horizontalLine);
 
         // 绘制竖线
-        sf::RectangleShape verticalLine(sf::Vector2f(1, Radius * 0.45));
-        verticalLine.setFillColor(sf::Color::Red);
-        verticalLine.setPosition(cur_loc->getX(), cur_loc->getY() - Radius * 0.2);
-        renderTexture->draw(verticalLine);
+        sf::RectangleShape* verticalLine = new sf::RectangleShape(sf::Vector2f(1, Radius * 0.45));
+        verticalLine->setFillColor(sf::Color::Red);
+        verticalLine->setPosition(cur_loc->getX(), cur_loc->getY() - Radius * 0.2);
+//        renderTexture->draw(*verticalLine);
+        // 存储棋子 to regret
+        qiZiData->r1 = horizontalLine;
+        qiZiData->r2 = verticalLine;
     }
-    renderTexture->display();
+    Data_list.push_back(qiZiData);
+//    renderTexture->display();
 
     return renderTexture;
 
 }
 
 
+void Qi_Zi::regret_qi() {
+    if (!Data_list.empty()){
+//        QiZi_Data* cur_qiZi = this->Data_list.back();
+//        this->Data_list.pop_back();
+//        QiZi_Data* next_qiZi = this->Data_list.back();
+//        this->Data_list.pop_back();
 
+//        cur_qiZi->r1->setFillColor(sf::Color::Transparent);
+//        cur_qiZi->r2->setFillColor(sf::Color::Transparent);
+//        cur_qiZi->c1->setFillColor(sf::Color::Red);
+//        cur_qiZi->c1->setOutlineColor(sf::Color::Red);
+
+//        next_qiZi->c1->setFillColor(sf::Color::Red);
+//        next_qiZi->c1->setOutlineColor(sf::Color::Red);
+//        cur_qiZi->r1->setOutlineColor(sf::Color::Transparent);
+//        cur_qiZi->r2->setOutlineColor(sf::Color::Transparent);
+
+//        this->renderTexture->draw(*cur_qiZi->r1);
+//        this->renderTexture->draw(*cur_qiZi->c1);
+//        this->renderTexture->draw(*cur_qiZi->r2);
+//        game->window->clear();
+//        game->window->draw(sf::Sprite(renderTexture->getTexture()));
+//        game->window->display();
+//        delete cur_qiZi;
+    }
+}
 
 //构造函数
 Qi_Zi::Qi_Zi(Game *game,sf::RenderTexture* renderTexture){
@@ -91,9 +122,9 @@ int Qi_Zi::clickValid() {
         //每个点位控制的有效范围为棋子本身的大小，超出范围依然为无效点击
         if(fabs((loc->getX() - minX) - indX * (qiPan->getGap()+1)) < 2*qiPan->getChessSize()
            && fabs((loc->getY() - minY) - indY * (qiPan->getGap()+1)) < 2*qiPan->getChessSize()
-           && qiPan->getQiPan()[indY][indX] == 0) {
+           && qiPan->getQiPan()[indX][indY] == 0) {
             //将下标位置传入棋盘类并更新棋盘
-            qiPan->update(new location(indX, indY));
+            qiPan->update(new location(indY, indX));
             //返回1为有效点击
             return 1;
         }
