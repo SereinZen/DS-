@@ -30,6 +30,18 @@ public:
     }
 };
 
+class QiZi_Data{
+public:
+    int color;
+    sf::RectangleShape* r1;
+    sf::RectangleShape* r2;
+    sf::CircleShape* c1;
+    location* map_loc;
+
+    QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1, location* map_loc);
+    ~QiZi_Data();
+};
+
 class Qi_Zi {
 private:
     location *loc; //当前棋子实际坐标（落子后将映射为数组坐标）

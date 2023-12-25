@@ -79,12 +79,10 @@ void Qi_Pan::generateWuZiQiBackground() {
     dot.setPosition(center + offset - dotSize, center + offset - dotSize);
     renderTexture->draw(dot);
     renderTexture->display();
-//    renderTexture->display();
-//    return renderTexture.getTexture();
 }
 
 //构造函数，由Game类控制传入，实时建立窗口与初始化棋盘以及各个变量
-Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture) {
+Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius) {
     this->myLoc = nullptr;
     this->chessLoc = new location(0, 0);
     this->size = 15;
@@ -111,20 +109,28 @@ Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTex
 
 void Qi_Pan::qi_regret() {
     if (!qiZi->Data_list.empty()){
-        QiZi_Data* cur_qi = *(qiZi->Data_list.end() - 1);
-        qiZi->Data_list.pop_back();
-        this->color = -this->color;
-        this->getQiPan()[cur_qi->map_loc->getY()][cur_qi->map_loc->getX()] = 0;
-        for (int i = 0; i < this->getSize(); i++){
-            std::cout << i + 1 << " ";
-            for (int j = 0; j < this->getSize(); j++){
-                std::cout << this->getQiPan()[i][j] << " ";
+        int i=0;
+        if(game->getMode()==0){
+            i=1;
+        }
+        if(game->getMode()==1){
+            i=2;
+        }
+        for(int k=0;k<i;k++){
+            QiZi_Data* cur_qi = *(qiZi->Data_list.end() - 1);
+            qiZi->Data_list.pop_back();
+            this->color = -this->color;
+            this->getQiPan()[cur_qi->map_loc->getY()][cur_qi->map_loc->getX()] = 0;
+            if(color==1){
+                std::cout<<"黑棋悔棋，";
             }
-            std::cout << std::endl;
+            else
+                std::cout<<"白棋悔棋，";
+            std::cout<<"悔棋坐标："<<cur_qi->map_loc->getY()<<","<<cur_qi->map_loc->getX()<<std::endl;
         }
     }
     else{
-        std::cout << "没有棋子 无法悔棋" << std::endl;
+        std::cout << "没有棋子，无法悔棋" << std::endl;
     }
 }
 
@@ -168,10 +174,6 @@ location* Qi_Pan::getChessLoc() {
 }
 //在落子后更新棋盘
 void Qi_Pan::update(location* loc) {
-    //TODO 覆盖之前的十字棋子
-//    if (this->myLoc != nullptr){
-//        qiZi->drawChess(this->chessLoc);
-//    }
     this->myLoc = loc;
     rest--;
 
@@ -187,7 +189,8 @@ void Qi_Pan::update(location* loc) {
     }
 }
 
-void Qi_Pan::set(Qi_Zi* qiZi){
+void Qi_Pan::set(Game *game,Qi_Zi* qiZi){
+    this->game = game;
     this->qiZi = qiZi;
 }
 
