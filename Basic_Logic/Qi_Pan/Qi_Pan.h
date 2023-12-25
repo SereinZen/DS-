@@ -13,7 +13,6 @@ private:
     int height; // 棋盘的高度
     int dotRadius; // 背景图 五个定位点 的半径
     int chessRadius; // 棋子的半径
-    int color;// 当前棋子颜色
     int **qiPan;// 棋盘数组
     sf::RenderTexture* renderTexture; // 纹理
     int gap; // 棋盘中线条的间距
@@ -25,6 +24,7 @@ private:
 public:
     Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture);//构造函数
     ~Qi_Pan();//析构函数
+    int color;// 当前棋子颜色
     int getSize();//返回棋盘尺寸
     int getChessSize();//返回棋子大小
     int **getQiPan();//返回棋盘数组

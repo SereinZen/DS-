@@ -139,9 +139,22 @@ void Game::play(){
                 if (event.key.scancode == sf::Keyboard::Scan::R) {
 //                    TODO 悔棋
                     if (!qiZi->Data_list.empty()){
+                        QiZi_Data* cur_qi = *(qiZi->Data_list.end() - 1);
+                        qiPan->getQiPan()[cur_qi->map_loc->getY()][cur_qi->map_loc->getX()] = 0;
                         qiZi->Data_list.pop_back();
+                        qiPan->color = -qiPan->color;
+                        for (int i = 0; i < qiPan->getSize(); i++){
+                            std::cout << i + 1 << " ";
+                            for (int j = 0; j < qiPan->getSize(); j++){
+                                std::cout << qiPan->getQiPan()[i][j] << " ";
+                            }
+                            std::cout << std::endl;
+                        }
                         renderTexture->clear(sf::Color::Transparent);
                         break;
+                    }
+                    else{
+                        std::cout << "没有棋子 无法悔棋" << std::endl;
                     }
                 }
             }

@@ -13,12 +13,14 @@ public:
     sf::RectangleShape* r1;
     sf::RectangleShape* r2;
     sf::CircleShape* c1;
+    location* map_loc;
 
-    QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1){
+    QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1, location* map_loc){
         this->color = color;
         this->c1 = c1;
         this->r1 = r1;
         this->r2 = r2;
+        this->map_loc = map_loc;
     }
 
     ~QiZi_Data(){

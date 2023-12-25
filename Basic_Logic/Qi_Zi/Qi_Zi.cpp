@@ -35,7 +35,7 @@ sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
 
 //    qi_zi->setPosition(0,
 //                       0);
-    QiZi_Data* qiZiData = new QiZi_Data(qiPan->getColor(), nullptr, nullptr, qi_zi);
+    QiZi_Data* qiZiData = new QiZi_Data(qiPan->getColor(), nullptr, nullptr, qi_zi, qiPan->getLoc());
 //    renderTexture->draw(*qi_zi);
 
     if (loc == nullptr){
@@ -117,6 +117,13 @@ int Qi_Zi::clickValid() {
         //返回0为无效点击
         return 0;
 }
+
+void Qi_Zi::regret_qi() {
+
+
+
+}
+
 //初始化通信函数
 void Qi_Zi::set(Qi_Pan *qiPan){
     this->qiPan=qiPan;
