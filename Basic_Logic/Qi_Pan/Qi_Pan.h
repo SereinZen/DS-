@@ -20,11 +20,12 @@ private:
     location* myLoc; //当前棋子的数组坐标
     location* chessLoc; //当前棋子的实际坐标
     void generateWuZiQiBackground();
+    int color;// 当前棋子颜色
+
     Qi_Zi* qiZi;
 public:
     Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTexture* renderTexture);//构造函数
     ~Qi_Pan();//析构函数
-    int color;// 当前棋子颜色
     int getSize();//返回棋盘尺寸
     int getChessSize();//返回棋子大小
     int **getQiPan();//返回棋盘数组
@@ -36,6 +37,7 @@ public:
     location* getLoc();//返回棋子下标坐标
     void set(Qi_zi* qiZi);
     sf::RenderTexture* getBackGround();
+    void qi_regret();
     void set(Qi_Zi *qiZi);
 };
 

@@ -136,20 +136,20 @@ void Qi_Zi::Luo_Zi(location *l) {
         //如果点击有效，就将棋子显示出来
         drawChess(nullptr);
 
-        //音效
-        sf::SoundBuffer buffer;
-        buffer.loadFromFile("../src/Luo_Zi_Yin_Xiao.flac");
-        sf::Sound sound;
-        sound.setBuffer(buffer);
-
-        // 播放音效
-        sound.play();
-
-        // 等待音效播放完成
-        while (sound.getStatus() == sf::Sound::Playing) {
-            // 可以添加一些其他操作，或者直接休眠一段时间
-            sf::sleep(sf::milliseconds(100));
-        }
+//        //音效
+//        sf::SoundBuffer buffer;
+//        buffer.loadFromFile("../src/Luo_Zi_Yin_Xiao.flac");
+//        sf::Sound sound;
+//        sound.setBuffer(buffer);
+//
+//        // 播放音效
+//        sound.play();
+//
+//        // 等待音效播放完成
+//        while (sound.getStatus() == sf::Sound::Playing) {
+//            // 可以添加一些其他操作，或者直接休眠一段时间
+//            sf::sleep(sf::milliseconds(100));
+//        }
 
         //判断游戏是否结束
         if(int i=game->victory()){

@@ -109,6 +109,25 @@ Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTex
     generateWuZiQiBackground();
 }
 
+void Qi_Pan::qi_regret() {
+    if (!qiZi->Data_list.empty()){
+        QiZi_Data* cur_qi = *(qiZi->Data_list.end() - 1);
+        qiZi->Data_list.pop_back();
+        this->color = -this->color;
+        this->getQiPan()[cur_qi->map_loc->getY()][cur_qi->map_loc->getX()] = 0;
+        for (int i = 0; i < this->getSize(); i++){
+            std::cout << i + 1 << " ";
+            for (int j = 0; j < this->getSize(); j++){
+                std::cout << this->getQiPan()[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    else{
+        std::cout << "没有棋子 无法悔棋" << std::endl;
+    }
+}
+
 sf::RenderTexture* Qi_Pan::getBackGround() {
     return renderTexture;
 }
