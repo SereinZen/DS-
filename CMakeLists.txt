@@ -17,8 +17,8 @@ add_executable(WuZiQi
 
 # ÃÌº”œ¬√ÊSFML≈‰÷√
 set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR SFML-2.5.0/lib/cmake/SFML)
+set(SFML_DIR SFML-2.6.1/lib/cmake/SFML)
 find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
-include_directories(SFML/SFML-2.5.0/include)
+include_directories(SFML-2.6.1/include)
 #target_link_libraries(WuZiQi sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 target_link_libraries(WuZiQi sfml-system sfml-window sfml-graphics sfml-audio sfml-network sfml-main)

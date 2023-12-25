@@ -96,6 +96,7 @@ int location::getY() {return y;}
 Game::Game(int width, int height, int dotRadius, int Qi_radius){
     //创建一个游戏，棋盘、棋手、棋子指针，以及创建游戏窗口
     this->renderTexture = new sf::RenderTexture();
+    renderTexture->clear(sf::Color::Transparent);
     this->qiPan = new Qi_Pan(width, height, dotRadius, Qi_radius, renderTexture);
     this->qiShou = new Qi_Shou();
     this->qiZi = new Qi_Zi(this,renderTexture);
@@ -132,7 +133,8 @@ void Game::play(){
             }
             else if(event.type == sf::Event::KeyPressed) {
                 if (event.key.scancode == sf::Keyboard::Scan::R) {
-                    //TODO 悔棋
+//                    TODO 悔棋
+
                 }
             }
         }
@@ -151,7 +153,7 @@ void Game::play(){
         window->clear();
 
         window->draw(sf::Sprite(qiPan->getBackGround()->getTexture()));
-//        window->draw(sf::Sprite(renderTexture->getTexture()));
+        window->draw(sf::Sprite(renderTexture->getTexture()));
 
         window->display();
         if (int i = this->victory()){

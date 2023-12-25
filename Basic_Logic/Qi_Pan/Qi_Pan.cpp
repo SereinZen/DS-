@@ -150,9 +150,9 @@ location* Qi_Pan::getChessLoc() {
 //在落子后更新棋盘
 void Qi_Pan::update(location* loc) {
     //TODO 覆盖之前的十字棋子
-    if (this->myLoc != nullptr){
-        qiZi->drawChess(this->chessLoc);
-    }
+//    if (this->myLoc != nullptr){
+//        qiZi->drawChess(this->chessLoc);
+//    }
     this->myLoc = loc;
     rest--;
 

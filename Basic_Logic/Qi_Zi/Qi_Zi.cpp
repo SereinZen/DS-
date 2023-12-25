@@ -122,9 +122,16 @@ int Qi_Zi::clickValid() {
         //每个点位控制的有效范围为棋子本身的大小，超出范围依然为无效点击
         if(fabs((loc->getX() - minX) - indX * (qiPan->getGap()+1)) < 2*qiPan->getChessSize()
            && fabs((loc->getY() - minY) - indY * (qiPan->getGap()+1)) < 2*qiPan->getChessSize()
-           && qiPan->getQiPan()[indX][indY] == 0) {
+           && qiPan->getQiPan()[indY][indX] == 0) {
             //将下标位置传入棋盘类并更新棋盘
-            qiPan->update(new location(indY, indX));
+            qiPan->update(new location(indX, indY));
+//            for (int i = 0; i < qiPan->getSize(); i++){
+//                std::cout << i + 1 << " ";
+//                for (int j = 0; j < qiPan->getSize(); j++){
+//                    std::cout << qiPan->getQiPan()[i][j] << " ";
+//                }
+//                std::cout << std::endl;
+//            }
             //返回1为有效点击
             return 1;
         }
