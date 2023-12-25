@@ -15,7 +15,7 @@ cmake-build-relwithdebinfo/
 
 # Ignore user-specific CMake settings
 CMakeLists.txt.user
-CMakeLists.txt
+#CMakeLists.txt
 
 # Ignore compiled object files
 *.o
@@ -28,6 +28,7 @@ CMakeLists.txt
 # Ignore generated documentation
 /doc/
 SFML-2.5.0
+SFML-2.6.1
 
 # Ignore system-specific files
 .DS_Store
