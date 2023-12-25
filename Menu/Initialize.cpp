@@ -1,21 +1,6 @@
 #include "Initialize.h"
-
 #include "../Basic_Logic/Game/Game.h"
 #include <SFML/Graphics.hpp>
-
-//int main() {
-//    //设置棋盘尺寸
-//    int width = 1200;
-//    int height = 1200;
-//    int dotRadius = 4;
-//    int qi_radius = 25;
-//    //创建游戏
-//    Game game = Game(width, height, dotRadius, qi_radius);
-//    //游戏开始
-//    game.play();
-//
-//    return 0;
-//}
 
 enum class MenuOption {
     PvP,
@@ -83,7 +68,7 @@ int Initialize::initialize() {
                     window.setVisible(false);
 
                     //创建游戏
-                    Game game = Game(width, height, dotRadius, qi_radius);
+                    Game game = Game(width, height, dotRadius, qi_radius,0);
                     game.play();
                     window.setVisible(true);
 
@@ -93,6 +78,9 @@ int Initialize::initialize() {
                     currentState = GameState::PvAIGame;
                     // 进入人机对战游戏页面的逻辑
                     // ...
+                    Game game = Game(width, height, dotRadius, qi_radius,1);
+                    game.play();
+                    window.setVisible(true);
                 }
                 else if (isMouseOver(quitText, window)) {
                     selectedOption = MenuOption::Quit;

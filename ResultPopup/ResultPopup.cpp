@@ -1,14 +1,14 @@
 #include "ResultPopup.h"
 
 ResultPopup::ResultPopup(int result) {
-    window = new sf::RenderWindow(sf::VideoMode(500, 300), "结算", sf::Style::Close);
+    window = new sf::RenderWindow(sf::VideoMode(500, 300), "Game Over", sf::Style::Close);
 
     font.loadFromFile("../src/NotoSerifSC-Black.otf");
     text.setFont(font);
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::Black);
     text.setPosition(100, 100);
-//    sf::RenderTexture renderTexture;
+
     std::string message;
     if (result == 1) {
         message = "Black Chess Wins!";
@@ -19,9 +19,6 @@ ResultPopup::ResultPopup(int result) {
     }
 
     text.setString(message);
-//    renderTexture.draw(text);
-
-//    renderTexture.draw();
     this->displayResult();
 }
 

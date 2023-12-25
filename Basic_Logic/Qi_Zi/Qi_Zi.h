@@ -1,12 +1,24 @@
 #ifndef WUZIQI_QI_ZI_H
 #define WUZIQI_QI_ZI_H
 #include <SFML/Graphics.hpp>
-
+#include "vector"
 
 class Qi_Pan;
 class Qi_Shou;
 class location;
 class Game;
+
+class QiZi_Data{
+public:
+    int color;
+    sf::RectangleShape* r1;
+    sf::RectangleShape* r2;
+    sf::CircleShape* c1;
+    location* map_loc;
+
+    QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1, location* map_loc);
+    ~QiZi_Data();
+};
 
 class Qi_Zi {
 private:
@@ -21,6 +33,8 @@ public:
     void set(Qi_Pan *qiPan);//初始化通信函数
     void Luo_Zi(location *l);//落子函数，需要传入鼠标点击的坐标
     sf::RenderTexture * drawChess(location* loc);//落子后显示棋子
+    std::vector<QiZi_Data*> Data_list;
+
 };
 
 

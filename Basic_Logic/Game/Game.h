@@ -9,6 +9,7 @@
 class Qi_Pan;
 class Qi_Shou;
 class Qi_Zi;
+class AI;
 
 class location{
 private:
@@ -16,7 +17,7 @@ private:
     int y;
 public:
     location(int a,int b);
-    location* getLoc();
+//    location* getLoc();
     void set(int a,int b);
     int getX();
     int getY();
@@ -27,15 +28,18 @@ private:
     Qi_Pan *qiPan;//棋盘指针
     Qi_Shou *qiShou;//棋手指针
     Qi_Zi *qiZi;//棋子指针
+    AI *ai;
+    int mode;//游戏模式：0为人人对战，1为人机对战
     sf::Sprite* sprite; // 画好的面板
     sf::RenderTexture* renderTexture;//画板
     sf::Event event;//窗口全局监听事件
 
 public:
-    Game(int width, int height, int dotRadius, int Qi_radius);//构造函数，创建游戏
+    Game(int width, int height, int dotRadius, int Qi_radius,int mode);//构造函数，创建游戏
     ~Game();//析构函数，删除指针
     int victory();//判断是否分出胜负函数
     void play();//控制游戏流程函数
+    int getMode();
     sf::RenderWindow* window; // 窗口
 };
 

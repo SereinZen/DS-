@@ -7,8 +7,22 @@
 #include <cmath>
 #include <iostream>
 #include <SFML/Audio.hpp>
+
+QiZi_Data::QiZi_Data(int color, sf::RectangleShape* r1, sf::RectangleShape* r2, sf::CircleShape* c1, location* map_loc){
+    this->color = color;
+    this->c1 = c1;
+    this->r1 = r1;
+    this->r2 = r2;
+    this->map_loc = map_loc;
+}
+QiZi_Data::~QiZi_Data(){
+    delete r1;
+    delete c1;
+    delete r2;
+}
+
 //显示棋子函数
-sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
+sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
     location* cur_loc;
     if (loc != nullptr){
         cur_loc = loc;
@@ -18,35 +32,36 @@ sf::RenderTexture * Qi_Zi::drawChess(location* loc) {
         cur_loc = qiPan->getChessLoc();
     }
 
-    sf::CircleShape qi_zi(qiPan->getChessSize());
-    qi_zi.setOutlineColor(sf::Color::Black);
-    qi_zi.setOutlineThickness(1);
-//    shi_zi->getDefaultView();
+    sf::CircleShape* qi_zi = new sf::CircleShape(qiPan->getChessSize());
+    qi_zi->setOutlineColor(sf::Color::Black);
+    qi_zi->setOutlineThickness(1);
     //调用显示棋子函数的时候此时已经更新棋盘（已经换手了），所以需要反向判定当前颜色
     if (qiPan->getColor() == -1) {
-        qi_zi.setFillColor(sf::Color::Black);  // 设置棋子颜色
+        qi_zi->setFillColor(sf::Color::Black);  // 设置棋子颜色
     } else {
-        qi_zi.setFillColor(sf::Color::White);  // 设置棋子颜色
+        qi_zi->setFillColor(sf::Color::White);  // 设置棋子颜色
     }
     // 设置棋子位置
-    qi_zi.setPosition(cur_loc->getX() - qiPan->getChessSize(),
-                      cur_loc->getY() - qiPan->getChessSize());
-    renderTexture->draw(qi_zi);
+    qi_zi->setPosition(cur_loc->getX() - qiPan->getChessSize(),
+                       (1200 - cur_loc->getY()) - qiPan->getChessSize());
+    QiZi_Data* qiZiData = new QiZi_Data(qiPan->getColor(), nullptr, nullptr, qi_zi, qiPan->getLoc());
+
     if (loc == nullptr){
         int Radius = qiPan->getChessSize();
         // 横线
-        sf::RectangleShape horizontalLine(sf::Vector2f(Radius * 0.45, 1));
-        horizontalLine.setFillColor(sf::Color::Red);
-        horizontalLine.setPosition(cur_loc->getX() - Radius * 0.2, cur_loc->getY());
-        renderTexture->draw(horizontalLine);
+        sf::RectangleShape* horizontalLine = new sf::RectangleShape(sf::Vector2f(Radius * 0.45, 1));
+        horizontalLine->setFillColor(sf::Color::Red);
+        horizontalLine->setPosition(cur_loc->getX() - Radius * 0.2, 1200 - cur_loc->getY());
 
         // 绘制竖线
-        sf::RectangleShape verticalLine(sf::Vector2f(1, Radius * 0.45));
-        verticalLine.setFillColor(sf::Color::Red);
-        verticalLine.setPosition(cur_loc->getX(), cur_loc->getY() - Radius * 0.2);
-        renderTexture->draw(verticalLine);
+        sf::RectangleShape* verticalLine = new sf::RectangleShape(sf::Vector2f(1, Radius * 0.45));
+        verticalLine->setFillColor(sf::Color::Red);
+        verticalLine->setPosition(cur_loc->getX(), (1200 - cur_loc->getY()) - Radius * 0.2);
+        // 存储棋子 to regret
+        qiZiData->r1 = horizontalLine;
+        qiZiData->r2 = verticalLine;
     }
-    renderTexture->display();
+    Data_list.push_back(qiZiData);
 
     return renderTexture;
 
@@ -60,7 +75,6 @@ Qi_Zi::Qi_Zi(Game *game,sf::RenderTexture* renderTexture){
     loc=new location(0,0);
     this->game=game;
     this->renderTexture = renderTexture;
-//    this->shi_zi = this->generate_ShiZi();
 
 }
 
@@ -100,6 +114,7 @@ int Qi_Zi::clickValid() {
         //返回0为无效点击
         return 0;
 }
+
 //初始化通信函数
 void Qi_Zi::set(Qi_Pan *qiPan){
     this->qiPan=qiPan;
@@ -112,20 +127,21 @@ void Qi_Zi::Luo_Zi(location *l) {
         //如果点击有效，就将棋子显示出来
         drawChess(nullptr);
 
-        //音效
-        sf::SoundBuffer buffer;
-        buffer.loadFromFile("../src/Luo_Zi_Yin_Xiao.flac");
-        sf::Sound sound;
-        sound.setBuffer(buffer);
 
-        // 播放音效
-        sound.play();
-
-        // 等待音效播放完成
-        while (sound.getStatus() == sf::Sound::Playing) {
-            // 可以添加一些其他操作，或者直接休眠一段时间
-            sf::sleep(sf::milliseconds(100));
-        }
+//        //音效
+//        sf::SoundBuffer buffer;
+//        buffer.loadFromFile("../src/Luo_Zi_Yin_Xiao.flac");
+//        sf::Sound sound;
+//        sound.setBuffer(buffer);
+//
+//        // 播放音效
+//        sound.play();
+//
+//        // 等待音效播放完成
+//        while (sound.getStatus() == sf::Sound::Playing) {
+//            // 可以添加一些其他操作，或者直接休眠一段时间
+//            sf::sleep(sf::milliseconds(100));
+//        }
 
         //判断游戏是否结束
         if(int i=game->victory()){

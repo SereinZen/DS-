@@ -8,8 +8,7 @@ Qi_Shou::Qi_Shou(){
     loc=new location(0,0);
 }
 
-void Qi_Shou::set(Qi_Pan *qiPan,Qi_Zi *qiZi){
-    this->qiPan=qiPan;
+void Qi_Shou::set(Qi_Zi *qiZi){
     this->qiZi=qiZi;
 }
 
@@ -24,7 +23,7 @@ void Qi_Shou::play(sf::Event event,sf::RenderWindow *window) {
         if (event.mouseButton.button == sf::Mouse::Left){
             // 获取鼠标点击的坐标
             sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
-            std::cout << "鼠标坐标（坐标系）" << mousePosition.x << ", " << mousePosition.y << std::endl;
+            std::cout << "鼠标坐标：" << mousePosition.x << "," << mousePosition.y << std::endl;
 
             //将当前鼠标位置传入落子函数中
             loc->set(mousePosition.x, mousePosition.y);
