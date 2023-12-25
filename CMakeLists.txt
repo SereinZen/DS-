@@ -12,8 +12,8 @@ add_executable(WuZiQi
         Basic_Logic/Qi_Shou/Qi_Shou.cpp
         ResultPopup/ResultPopup.cpp
         Menu/Initialize.cpp
-        Basic_Logic/AI.h
-        Basic_Logic/AI.cpp
+        AI/AI.h
+        AI/AI.cpp
 )
 
 # ÃÌº”œ¬√ÊSFML≈‰÷√
