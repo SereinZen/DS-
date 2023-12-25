@@ -156,7 +156,7 @@ void Qi_Pan::update(location* loc) {
     this->myLoc = loc;
     rest--;
 
-    this->chessLoc->set(myLoc->getX() * gap + chessRadius * 2 + myLoc->getX(), myLoc->getY() * gap + chessRadius * 2 + myLoc->getY());
+    this->chessLoc->set(myLoc->getX() * (gap + 1) + chessRadius * 2, myLoc->getY() * (gap + 1) + chessRadius * 2);
     // 数组与地图的实际位置x y相反
     qiPan[myLoc->getY()][myLoc->getX()] = color;
     //进行更换棋子颜色（换手）

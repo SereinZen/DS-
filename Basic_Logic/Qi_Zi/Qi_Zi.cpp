@@ -30,7 +30,11 @@ sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
     }
     // 设置棋子位置
     qi_zi->setPosition(cur_loc->getX() - qiPan->getChessSize(),
-                      cur_loc->getY() - qiPan->getChessSize());
+                       (1200 - cur_loc->getY()) - qiPan->getChessSize());
+//                       1200 - (cur_loc->getY() - qiPan->getChessSize()));
+
+//    qi_zi->setPosition(0,
+//                       0);
     QiZi_Data* qiZiData = new QiZi_Data(qiPan->getColor(), nullptr, nullptr, qi_zi);
 //    renderTexture->draw(*qi_zi);
 
@@ -39,13 +43,13 @@ sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
         // 横线
         sf::RectangleShape* horizontalLine = new sf::RectangleShape(sf::Vector2f(Radius * 0.45, 1));
         horizontalLine->setFillColor(sf::Color::Red);
-        horizontalLine->setPosition(cur_loc->getX() - Radius * 0.2, cur_loc->getY());
+        horizontalLine->setPosition(cur_loc->getX() - Radius * 0.2, 1200 - cur_loc->getY());
 //        renderTexture->draw(*horizontalLine);
 
         // 绘制竖线
         sf::RectangleShape* verticalLine = new sf::RectangleShape(sf::Vector2f(1, Radius * 0.45));
         verticalLine->setFillColor(sf::Color::Red);
-        verticalLine->setPosition(cur_loc->getX(), cur_loc->getY() - Radius * 0.2);
+        verticalLine->setPosition(cur_loc->getX(), (1200 - cur_loc->getY()) - Radius * 0.2);
 //        renderTexture->draw(*verticalLine);
         // 存储棋子 to regret
         qiZiData->r1 = horizontalLine;
@@ -59,32 +63,7 @@ sf::RenderTexture* Qi_Zi::drawChess(location* loc) {
 }
 
 
-void Qi_Zi::regret_qi() {
-    if (!Data_list.empty()){
-//        QiZi_Data* cur_qiZi = this->Data_list.back();
-//        this->Data_list.pop_back();
-//        QiZi_Data* next_qiZi = this->Data_list.back();
-//        this->Data_list.pop_back();
 
-//        cur_qiZi->r1->setFillColor(sf::Color::Transparent);
-//        cur_qiZi->r2->setFillColor(sf::Color::Transparent);
-//        cur_qiZi->c1->setFillColor(sf::Color::Red);
-//        cur_qiZi->c1->setOutlineColor(sf::Color::Red);
-
-//        next_qiZi->c1->setFillColor(sf::Color::Red);
-//        next_qiZi->c1->setOutlineColor(sf::Color::Red);
-//        cur_qiZi->r1->setOutlineColor(sf::Color::Transparent);
-//        cur_qiZi->r2->setOutlineColor(sf::Color::Transparent);
-
-//        this->renderTexture->draw(*cur_qiZi->r1);
-//        this->renderTexture->draw(*cur_qiZi->c1);
-//        this->renderTexture->draw(*cur_qiZi->r2);
-//        game->window->clear();
-//        game->window->draw(sf::Sprite(renderTexture->getTexture()));
-//        game->window->display();
-//        delete cur_qiZi;
-    }
-}
 
 //构造函数
 Qi_Zi::Qi_Zi(Game *game,sf::RenderTexture* renderTexture){
@@ -125,13 +104,13 @@ int Qi_Zi::clickValid() {
            && qiPan->getQiPan()[indY][indX] == 0) {
             //将下标位置传入棋盘类并更新棋盘
             qiPan->update(new location(indX, indY));
-//            for (int i = 0; i < qiPan->getSize(); i++){
-//                std::cout << i + 1 << " ";
-//                for (int j = 0; j < qiPan->getSize(); j++){
-//                    std::cout << qiPan->getQiPan()[i][j] << " ";
-//                }
-//                std::cout << std::endl;
-//            }
+            for (int i = 0; i < qiPan->getSize(); i++){
+                std::cout << i + 1 << " ";
+                for (int j = 0; j < qiPan->getSize(); j++){
+                    std::cout << qiPan->getQiPan()[i][j] << " ";
+                }
+                std::cout << std::endl;
+            }
             //返回1为有效点击
             return 1;
         }

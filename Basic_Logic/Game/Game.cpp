@@ -98,6 +98,9 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius){
     this->renderTexture = new sf::RenderTexture();
     renderTexture->create(width, height);
     renderTexture->clear(sf::Color::Transparent);
+    sf::RectangleShape rectangleShape = sf::RectangleShape(sf::Vector2f(height, width));
+    rectangleShape.setOutlineColor(sf::Color::Transparent);
+    rectangleShape.setFillColor(sf::Color::Transparent);
     this->qiPan = new Qi_Pan(width, height, dotRadius, Qi_radius, renderTexture);
     this->qiShou = new Qi_Shou();
     this->qiZi = new Qi_Zi(this,renderTexture);
