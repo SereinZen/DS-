@@ -105,7 +105,7 @@ Qi_Pan::Qi_Pan(int width, int height, int dotRadius, int qiRadius, sf::RenderTex
     }
     this->qiPan = qiPan;
     // 创建SFML窗口
-    this->renderTexture = renderTexture;
+    this->renderTexture = new sf::RenderTexture();
     generateWuZiQiBackground();
 }
 

@@ -96,6 +96,7 @@ int location::getY() {return y;}
 Game::Game(int width, int height, int dotRadius, int Qi_radius){
     //创建一个游戏，棋盘、棋手、棋子指针，以及创建游戏窗口
     this->renderTexture = new sf::RenderTexture();
+    renderTexture->create(width, height);
     renderTexture->clear(sf::Color::Transparent);
     this->qiPan = new Qi_Pan(width, height, dotRadius, Qi_radius, renderTexture);
     this->qiShou = new Qi_Shou();
@@ -134,20 +135,23 @@ void Game::play(){
             else if(event.type == sf::Event::KeyPressed) {
                 if (event.key.scancode == sf::Keyboard::Scan::R) {
 //                    TODO 悔棋
-
+                    if (!qiZi->Data_list.empty()){
+                        qiZi->Data_list.pop_back();
+                        renderTexture->clear(sf::Color::Transparent);
+                        break;
+                    }
                 }
             }
         }
-
         for (auto qi: qiZi->Data_list){
 //            renderTexture->clear();
             // 画的顺序不能颠倒！！！
             renderTexture->draw(*qi->c1);
 
-            if (qi->r1 != nullptr and qi->r2 != nullptr){
-                renderTexture->draw(*qi->r1);
-                renderTexture->draw(*qi->r2);
-            }
+                if (qi == qiZi->Data_list.back()){
+                    renderTexture->draw(*qi->r1);
+                    renderTexture->draw(*qi->r2);
+                }
         }
         //游戏结束后清空窗口，然后关掉（！注意！本部分代码在游戏正常结束时从未运行过！！！）
         window->clear();
