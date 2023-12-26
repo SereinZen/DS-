@@ -103,7 +103,7 @@ int Initialize::initialize() {
             }
 
         }
-
+        status = 1;
         // 根据选中的选项设置文本颜色
         pvpText.setFillColor(selectedOption == MenuOption::PvP ? sf::Color::Red : sf::Color::Yellow);
         pvaiText.setFillColor(selectedOption == MenuOption::PvAI ? sf::Color::Red : sf::Color::Yellow);
