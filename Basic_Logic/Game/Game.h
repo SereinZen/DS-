@@ -41,6 +41,7 @@ public:
     void play();//控制游戏流程函数
     int getMode();
     sf::RenderWindow* window; // 窗口
+    int again; // 是否重来
 };
 
 

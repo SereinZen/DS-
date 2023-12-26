@@ -15,7 +15,7 @@ enum class GameState {
     PvAIGame
 };
 
-bool isMouseOver(const sf::Text& text, const sf::RenderWindow& window) {
+bool isMouseOver1(const sf::Text& text, const sf::RenderWindow& window) {
     sf::FloatRect bounds = text.getGlobalBounds();
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     sf::Vector2f convertedPosition = window.mapPixelToCoords(mousePosition);
@@ -40,16 +40,17 @@ int Initialize::initialize() {
     sf::Texture texture;
     texture.loadFromFile("../src/background.png");
     sf::Text titleText("Game Menu", font, 80);
-    titleText.setPosition(350, 150);
+    titleText.setPosition(350, 300);
+    titleText.setFillColor(sf::Color::Cyan);
 
     sf::Text pvpText("PVP", font, 60);
-    pvpText.setPosition(200, 500);
+    pvpText.setPosition(535, 680);
 
-    sf::Text pvaiText("PvE", font, 60);
-    pvaiText.setPosition(900, 500);
+    sf::Text pvaiText("PVE", font, 60);
+    pvaiText.setPosition(535, 790);
 
     sf::Text quitText("Quit", font, 60);
-    quitText.setPosition(550, 750);
+    quitText.setPosition(535, 900);
 
     MenuOption selectedOption = MenuOption::PvP;
     GameState currentState = GameState::Menu;
@@ -58,6 +59,7 @@ int Initialize::initialize() {
     music.setLoop(true); // 设置音乐循环播放
     music.setVolume(50);
     music.play(); // 播放音乐
+    int status = 1;
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -65,7 +67,7 @@ int Initialize::initialize() {
                 window.close();
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
-                if (isMouseOver(pvpText, window)) {
+                if (isMouseOver1(pvpText, window)) {
                     selectedOption = MenuOption::PvP;
                     currentState = GameState::PvPGame;
                     // 进入人人对战游戏页面的逻辑
@@ -73,21 +75,28 @@ int Initialize::initialize() {
                     window.setVisible(false);
 
                     //创建游戏
-                    Game game = Game(width, height, dotRadius, qi_radius,0);
-                    game.play();
+                    while (status == 1){
+                        Game new_game = Game(width, height, dotRadius, qi_radius,0);
+                        new_game.play();
+                        status = new_game.again;
+                    }
                     window.setVisible(true);
 
                 }
-                else if (isMouseOver(pvaiText, window)) {
+                else if (isMouseOver1(pvaiText, window)) {
                     selectedOption = MenuOption::PvAI;
                     currentState = GameState::PvAIGame;
                     // 进入人机对战游戏页面的逻辑
                     // ...
-                    Game game = Game(width, height, dotRadius, qi_radius,1);
-                    game.play();
+                    while (status == 1){
+                        Game new_game = Game(width, height, dotRadius, qi_radius,0);
+                        new_game.play();
+                        status = new_game.again;
+                    }
+
                     window.setVisible(true);
                 }
-                else if (isMouseOver(quitText, window)) {
+                else if (isMouseOver1(quitText, window)) {
                     selectedOption = MenuOption::Quit;
                     window.close();
                 }

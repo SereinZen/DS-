@@ -113,6 +113,7 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius,int mode){
     qiZi->set(qiPan);
     qiShou->set(qiZi);
     ai->set(this,qiPan);
+    again = 0;
 }
 
 int Game::getMode() {
@@ -171,6 +172,10 @@ void Game::play(){
         window->display();
         if (int i = this->victory()){
             ResultPopup rp = ResultPopup(i);
+            if (rp.chose == 1){
+                // again
+                this->again = 1;
+            }
             this->window->close();
         }
     }
