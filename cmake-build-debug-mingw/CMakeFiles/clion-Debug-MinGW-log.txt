@@ -1,0 +1,17 @@
+"D:\softwares\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/softwares/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S "D:\Codes\MyCode c++\WuZiQi" -B "D:\Codes\MyCode c++\WuZiQi\cmake-build-debug-mingw"
+-- The C compiler identification is GNU 13.1.0
+-- The CXX compiler identification is GNU 13.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/softwares/SFML/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/softwares/SFML/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found SFML 2.6.1 in D:/Codes/MyCode c++/WuZiQi/SFML-2.6.1/lib/cmake/SFML
+-- Configuring done (5.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/Codes/MyCode c++/WuZiQi/cmake-build-debug-mingw

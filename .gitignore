@@ -9,7 +9,7 @@
 
 # Ignore CMake build directories
 cmake-build-debug/
-cmake-build-debug-mingw/
+#cmake-build-debug-mingw/
 cmake-build-release/
 cmake-build-relwithdebinfo/
 
@@ -28,7 +28,7 @@ CMakeLists.txt.user
 # Ignore generated documentation
 /doc/
 SFML-2.5.0
-SFML-2.6.1
+#SFML-2.6.1
 
 # Ignore system-specific files
 .DS_Store
