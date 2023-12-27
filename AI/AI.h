@@ -12,9 +12,9 @@ class AI{
     location *pos;
     int **a;
     location* evaluate();
-    int evaluateScore(int color,int minX,int minY,int maxX,int maxY);
-    int isWin(int color,location loc);
+    int evaluateScore(int color);
     void getScore(int color,string line);
+    int curLianWu = 0;
     int curChongSi = 0;
     int oppChongSi = 0;
     int curHuoSi = 0;
