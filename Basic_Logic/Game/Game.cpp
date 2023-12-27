@@ -112,7 +112,7 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius,int mode){
     qiPan->set(this,qiZi);
     qiZi->set(qiPan);
     qiShou->set(qiZi);
-    ai->set(this,qiPan);
+    ai->set(qiPan);
     again = 0;
 }
 
@@ -152,6 +152,7 @@ void Game::play(){
             }
             else if(mode == 1 && qiPan->getColor() == -1){
                 location *loc=ai->getBestMove();
+                cout << loc->getX() << " " << loc->getY() << endl;
                 qiZi->Luo_Zi(loc);
             }
         }

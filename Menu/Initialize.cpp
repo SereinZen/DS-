@@ -89,7 +89,7 @@ int Initialize::initialize() {
                     // 进入人机对战游戏页面的逻辑
                     // ...
                     while (status == 1){
-                        Game new_game = Game(width, height, dotRadius, qi_radius,0);
+                        Game new_game = Game(width, height, dotRadius, qi_radius,1);
                         new_game.play();
                         status = new_game.again;
                     }
