@@ -77,7 +77,7 @@ int Initialize::initialize() {
                     selectedOption = MenuOption::PvAI;
                     currentState = GameState::PvAIGame;
                     // 进入人机对战游戏页面的逻辑
-                    // ...
+                    window.setVisible(false);
                     Game game = Game(width, height, dotRadius, qi_radius,1);
                     game.play();
                     window.setVisible(true);

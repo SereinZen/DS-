@@ -87,7 +87,6 @@ void location::set(int a, int b){
     x=a;
     y=b;
 }
-//location *location::getLoc() {return this;}
 int location::getX() {return x;}
 int location::getY() {return y;}
 
@@ -112,7 +111,7 @@ Game::Game(int width, int height, int dotRadius, int Qi_radius,int mode){
     qiPan->set(this,qiZi);
     qiZi->set(qiPan);
     qiShou->set(qiZi);
-    ai->set(this,qiPan);
+    ai->set(qiPan);
 }
 
 int Game::getMode() {
