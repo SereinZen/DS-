@@ -4,7 +4,7 @@
 #include "..\Game\Game.h"
 #include "iostream"
 #include <SFML/Graphics.hpp>
-#include "math.h"
+#include <cmath>
 
 void Qi_Pan::generateWuZiQiBackground() {
     renderTexture->create(width, height);

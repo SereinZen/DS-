@@ -586,13 +586,13 @@ int AI::evaluateScore(int color) {
                 return 100000;
             }
         //下15个子以前不允许轻易放弃
-            //必杀情况2 对手两个冲四当做1个活四处理（直接返回-9050分）
-            if(oppChongSi>=2){
-                curScore-=15000;
-            }
             //必杀情况3 对手活四，直接返回-9050分
             if(oppHuoSi>=1){
                 curScore-=15000;
+            }
+            //必杀情况2 对手两个冲四当做1个活四处理（直接返回-9050分）
+            if(oppChongSi>=2){
+                curScore-=14500;
             }
             //必杀情况4 对手冲四，直接返回-9040分
             if(oppChongSi>=1){
@@ -764,14 +764,15 @@ location* AI::evaluate(){
         }
     }
 
-//    //TODO debug
-    for(int i=0;i<qiPan->getSize();i++){
-        for(int j=0;j<qiPan->getSize();j++){
-            cout<<score[i][j]<<" ";
-        }
-        cout<<endl;
-    }
+////    //TODO debug
+//    for(int i=0;i<qiPan->getSize();i++){
+//        for(int j=0;j<qiPan->getSize();j++){
+//            cout<<score[i][j]<<" ";
+//        }
+//        cout<<endl;
+//    }
 
+    cout<<"AI点击位置："<<pos->getX()<<"，"<<pos->getY()<<endl;
     return pos;
 }
 
