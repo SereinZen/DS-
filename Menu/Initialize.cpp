@@ -38,22 +38,9 @@ int Initialize::initialize() {
         return -1;
     }
     sf::Texture texture;
-    texture.loadFromFile("../src/background.png");
-    sf::Text titleText("Game Menu", font, 80);
-    titleText.setPosition(350, 300);
-    titleText.setFillColor(sf::Color::Cyan);
+    texture.loadFromFile("../src/Manu.png");
 
-    sf::Text pvpText("PVP", font, 60);
-    pvpText.setPosition(535, 680);
 
-    sf::Text pvaiText("PVE", font, 60);
-    pvaiText.setPosition(535, 790);
-
-    sf::Text quitText("Quit", font, 60);
-    quitText.setPosition(535, 900);
-
-    MenuOption selectedOption = MenuOption::PvP;
-    GameState currentState = GameState::Menu;
     sf::Music music;
     music.openFromFile("../src/BGM.flac");
     music.setLoop(true); // 设置音乐循环播放
@@ -67,54 +54,36 @@ int Initialize::initialize() {
                 window.close();
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
-                if (isMouseOver1(pvpText, window)) {
-                    selectedOption = MenuOption::PvP;
-                    currentState = GameState::PvPGame;
-                    // 进入人人对战游戏页面的逻辑
-                    //游戏开始
-                    window.setVisible(false);
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                int x = mousePosition.x;
+                int y = mousePosition.y;
 
-                    //创建游戏
-                    while (status == 1){
-                        Game new_game = Game(width, height, dotRadius, qi_radius,0);
-                        new_game.play();
-                        status = new_game.again;
+                for (int i = 0; i < 3; i++){
+                    if (x > 500 and x < 700 and y > 780 + i * 100 and y < 840 + i * 100) {
+                        if (i == 1 or i == 0){
+                            window.setVisible(false);
+                            //创建游戏
+                            while (status == 1){
+                                Game new_game = Game(width, height, dotRadius, qi_radius,i);
+                                new_game.play();
+                                status = new_game.again;
+                            }
+                            window.setVisible(true);
+                        }
+                        else if (i == 2){
+                            window.close();
+                        }
+                        break;
                     }
-                    window.setVisible(true);
+                }
 
-                }
-                else if (isMouseOver1(pvaiText, window)) {
-                    selectedOption = MenuOption::PvAI;
-                    currentState = GameState::PvAIGame;
-                    // 进入人机对战游戏页面的逻辑
-                    // ...
-                    while (status == 1){
-                        Game new_game = Game(width, height, dotRadius, qi_radius,1);
-                        new_game.play();
-                        status = new_game.again;
-                    }
-
-                    window.setVisible(true);
-                }
-                else if (isMouseOver1(quitText, window)) {
-                    selectedOption = MenuOption::Quit;
-                    window.close();
-                }
             }
 
         }
         status = 1;
-        // 根据选中的选项设置文本颜色
-        pvpText.setFillColor(selectedOption == MenuOption::PvP ? sf::Color::Red : sf::Color::Yellow);
-        pvaiText.setFillColor(selectedOption == MenuOption::PvAI ? sf::Color::Red : sf::Color::Yellow);
-        quitText.setFillColor(selectedOption == MenuOption::Quit ? sf::Color::Red : sf::Color::Yellow);
 
         window.clear();
         window.draw(sf::Sprite(texture));
-        window.draw(titleText);
-        window.draw(pvpText);
-        window.draw(pvaiText);
-        window.draw(quitText);
         window.display();
     }
 

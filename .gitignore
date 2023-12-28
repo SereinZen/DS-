@@ -22,7 +22,7 @@ CMakeLists.txt.user
 *.obj
 
 # Ignore compiled executables
-*.exe
+#*.exe
 *.out
 
 # Ignore generated documentation
