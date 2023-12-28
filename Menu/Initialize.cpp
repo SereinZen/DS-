@@ -32,11 +32,6 @@ int Initialize::initialize() {
     sf::RenderWindow window(sf::VideoMode(1200, 1200), "WuZiQi");
     window.setFramerateLimit(60);
 
-    sf::Font font;
-    if (!font.loadFromFile("../src/NotoSerifSC-Black.otf")) {
-        // 处理字体加载失败的情况
-        return -1;
-    }
     sf::Texture texture;
     texture.loadFromFile("../src/Manu.png");
 

@@ -8,7 +8,7 @@ bool isMouseOver(const sf::Text& text, const sf::RenderWindow& window) {
 }
 
 ResultPopup::ResultPopup(int result) {
-    window = new sf::RenderWindow(sf::VideoMode(400, 150), "Game Over", sf::Style::Close);
+    window = new sf::RenderWindow(sf::VideoMode(400, 250), "Game Over", sf::Style::Close);
 
     font.loadFromFile("../src/NotoSerifSC-Black.otf");
     text.setFont(font);
@@ -18,10 +18,13 @@ ResultPopup::ResultPopup(int result) {
 
     std::string message;
     if (result == 1) {
+        texture.loadFromFile("../src/Black_result.png");
         message = "Black Chess Wins!";
     } else if (result == -1) {
+        texture.loadFromFile("../src/White_result.png");
         message = "White Chess Wins!";
     } else if (result == 0) {
+        texture.loadFromFile("../src/Draw_result.png");
         message = "Draw!";
     }
     text.setString(message);
@@ -49,21 +52,21 @@ void ResultPopup::displayResult() {
                 window->close();
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
-                if (isMouseOver(againText, *window)) {
-                    chose = 1;
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+                int x = mousePosition.x;
+                int y = mousePosition.y;
 
+                for (int i = 0; i < 2; i ++){
+                    if (x > 115 and x < 280 and y > 150 + i * 50 and y < 180 + i * 50){
+                        chose = i + 1;
+                        window->close();
+                    }
                 }
-                else if (isMouseOver(backText, *window)) {
-                    chose = 2;
-                }
-                window->close();
             }
         }
 
         window->clear(sf::Color::White);
-        window->draw(text);
-        window->draw(backText);
-        window->draw(againText);
+        window->draw(sf::Sprite(texture));
         window->display();
     }
 }

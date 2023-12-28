@@ -17,6 +17,7 @@ private:
     sf::Text text;
     sf::Text backText;
     sf::Text againText;
+    sf::Texture texture;
 };
 
 #endif // RESULTPOPUP_H
